@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/hava
+    username: root
+    password: 20091999
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+swagger2:
+  title: Portal VIMC BE - REST API
+  description: Portal VIMC BE - REST API documentation
+  version: 1.0.0
+  url-view: '/v2/api-docs,/configuration/**,/swagger-resources/**,/swagger-ui.html,/webjars/**'
+

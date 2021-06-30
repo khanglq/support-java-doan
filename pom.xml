@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.5.0</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  <groupId>com.fpt</groupId>
+  <artifactId>hava</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>hava</name>
+  <description>Hava project</description>
+  <properties>
+    <java.version>1.8</java.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+<!--      <exclusions>-->
+<!--        <exclusion>-->
+<!--          <groupId>org.springframework.boot</groupId>-->
+<!--          <artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--        </exclusion>-->
+<!--      </exclusions>-->
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!-- // swagger -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>2.9.2</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>2.9.2</version>
+    </dependency>
+    <!-- \\ swagger -->
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.modelmapper</groupId>
+      <artifactId>modelmapper</artifactId>
+      <version>2.3.5</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator-maven-plugin</artifactId>
+        <version>3.3.4</version>
+        <executions>
+          <execution>
+            <id>execution-api-document</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/swagger/document.yaml</inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>com.fpt.hava.web.api.hava_manager.document</apiPackage>
+              <modelPackage>com.fpt.hava.web.api.hava_manager.document.dto</modelPackage>
+              <validateSpec>true</validateSpec>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>execution-api-document_categories</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/swagger/document_categories.yaml</inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>com.fpt.hava.web.api.hava_manager.document_categories</apiPackage>
+              <modelPackage>com.fpt.hava.web.api.hava_manager.document_categories.dto</modelPackage>
+              <validateSpec>true</validateSpec>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>execution-api-videos</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/swagger/videos.yaml</inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>com.fpt.hava.web.api.hava_manager.videos</apiPackage>
+              <modelPackage>com.fpt.hava.web.api.hava_manager.videos.dto</modelPackage>
+              <validateSpec>true</validateSpec>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>execution-api-feels</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/swagger/feels.yaml</inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>com.fpt.hava.web.api.hava_manager.feels</apiPackage>
+              <modelPackage>com.fpt.hava.web.api.hava_manager.feels.dto</modelPackage>
+              <validateSpec>true</validateSpec>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>execution-api-fqas</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/swagger/fqas.yaml</inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>com.fpt.hava.web.api.hava_manager.fqas</apiPackage>
+              <modelPackage>com.fpt.hava.web.api.hava_manager.fqas.dto</modelPackage>
+              <validateSpec>true</validateSpec>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>execution-api-exam</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/swagger/exam.yaml</inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>com.fpt.hava.web.api.hava_manager.exam</apiPackage>
+              <modelPackage>com.fpt.hava.web.api.hava_manager.exam.dto</modelPackage>
+              <validateSpec>true</validateSpec>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>execution-api-question</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/swagger/question.yaml</inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>com.fpt.hava.web.api.hava_manager.question</apiPackage>
+              <modelPackage>com.fpt.hava.web.api.hava_manager.question.dto</modelPackage>
+              <validateSpec>true</validateSpec>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>execution-api-exam_question</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/swagger/exam_question.yaml</inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>com.fpt.hava.web.api.hava_manager.exam_question</apiPackage>
+              <modelPackage>com.fpt.hava.web.api.hava_manager.exam_question.dto</modelPackage>
+              <validateSpec>true</validateSpec>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>execution-api-theory</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/swagger/theory.yaml</inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>com.fpt.hava.web.api.hava_manager.theory</apiPackage>
+              <modelPackage>com.fpt.hava.web.api.hava_manager.theory.dto</modelPackage>
+              <validateSpec>true</validateSpec>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

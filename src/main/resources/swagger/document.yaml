@@ -1,0 +1,104 @@
+openapi: 3.0.1
+info:
+  title: "Hava Project - REST API documents"
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api/v1'
+paths:
+  '/documents/{id}':
+    get:
+      summary: Get Document By Id
+      operationId: getDocument
+      tags:
+        - documents
+      parameters:
+        - name: id
+          in: path
+          description: 'id of document category'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Documents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentDTO'
+  '/documents':
+    get:
+      summary: Get All Document From 1 to 9
+      operationId: getDocument
+      tags:
+        - documents
+      responses:
+        '200':
+          description: Documents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentDTO'
+
+components:
+  schemas:
+    DocumentDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        thumbnail:
+          type: string
+        href:
+          type: string
+        document_category_id:
+          type: integer
+
+
+
+#openapi: 3.0.1
+#info:
+#  title: "Hava Project - REST API documents"
+#  version: 1.0.0
+#servers:
+#  - url: 'http://localhost:8080/api/v1'
+#paths:
+#  '/documents':
+#    get:
+#      summary: Get Documents
+#      operationId: getDocuments
+#      tags:
+#        - documents
+#      responses:
+#        '200':
+#          description: Documents
+#          content:
+#            application/json:
+#              schema:
+#                type: array
+#                items:
+#                  $ref: '#/components/schemas/DocumentDTO'
+#
+#components:
+#  schemas:
+#    DocumentDTO:
+#      type: object
+#      properties:
+#        id:
+#          type: integer
+#        title:
+#          type: string
+#        thumbnail:
+#          type: string
+#        href:
+#          type: string
+#        document_category_id:
+#          type: integer
+#
+
+

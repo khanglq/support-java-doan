@@ -1,0 +1,35 @@
+openapi: 3.0.1
+info:
+  title: "Hava Project - REST API documents"
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api/v1'
+paths:
+  '/fqas':
+    get:
+      summary: Get FQAS
+      operationId: getFQAS
+      tags:
+        - fqas
+      responses:
+        '200':
+          description: fqas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FqasDTO'
+
+components:
+  schemas:
+    FqasDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        contents:
+          type: string
+

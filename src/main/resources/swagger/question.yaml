@@ -1,0 +1,67 @@
+openapi: 3.0.1
+info:
+  title: "Hava Project - REST API documents"
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api/v1'
+paths:
+  '/questions/{id}':
+    get:
+      summary: Get Question By Id
+      operationId: getQuestions
+      tags:
+        - questions
+      parameters:
+        - name: id
+          in: path
+          description: 'id of question'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Questions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionDTO'
+
+components:
+  schemas:
+    questionDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        labelId:
+          type: integer
+        question:
+          type: string
+        hints:
+          type: string
+        answer:
+          type: string
+        comments:
+          type: string
+        answerTrue:
+          type: integer
+        answerA:
+          type: string
+        answerB:
+          type: string
+        answerC:
+          type: string
+        answerD:
+          type: string
+        categoryId:
+          type: integer
+        level:
+          type: integer
+        isLabel:
+          type: integer
+        labelOf:
+          type: integer
+
+

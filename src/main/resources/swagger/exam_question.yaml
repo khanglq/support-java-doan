@@ -1,0 +1,45 @@
+openapi: 3.0.1
+info:
+  title: "Hava Project - REST API documents"
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api/v1'
+paths:
+  '/list-question/{id}':
+    get:
+      summary: Get List Id Question By Exam Id
+      operationId: getListIdQuestion
+      tags:
+        - idQuestion
+      parameters:
+        - name: id
+          in: path
+          description: 'id of exam'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of id question
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/questionIdDTO'
+
+components:
+  schemas:
+    questionIdDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        isLable:
+          type: integer
+        questionId:
+          type: integer
+        examId:
+          type: integer
+
+
