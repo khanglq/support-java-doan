@@ -15,7 +15,7 @@ public class ExamImpl implements ExamService {
 
   @Override
   public List<ExamsEntity> getExamsByIdCategory(Integer id) {
-    List<ExamsEntity> examsEntities = examRepository.findAllByCategoryId(id);
+    List<ExamsEntity> examsEntities = examRepository.findAllByCategoryIdOrderByTitleAsc(id);
     return examsEntities;
   }
 }

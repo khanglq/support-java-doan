@@ -7,14 +7,14 @@ servers:
 paths:
   '/questions/{id}':
     get:
-      summary: Get Question By Id
+      summary: Get Question By Id Exam
       operationId: getQuestions
       tags:
         - questions
       parameters:
         - name: id
           in: path
-          description: 'id of question'
+          description: 'id of exam'
           required: true
           schema:
             type: integer
@@ -24,7 +24,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/questionDTO'
+                type: array
+                items:
+                  $ref: '#/components/schemas/questionDTO'
 
 components:
   schemas:
