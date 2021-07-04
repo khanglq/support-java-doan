@@ -222,6 +222,23 @@
           </execution>
 
           <execution>
+            <id>execution-api-test_history</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/swagger/test_history.yaml</inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>com.fpt.hava.web.api.hava_manager.test_history</apiPackage>
+              <modelPackage>com.fpt.hava.web.api.hava_manager.test_history.dto</modelPackage>
+              <validateSpec>true</validateSpec>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
+          <execution>
             <id>execution-api-theory</id>
             <goals>
               <goal>generate</goal>
