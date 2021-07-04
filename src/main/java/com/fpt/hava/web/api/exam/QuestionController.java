@@ -36,6 +36,7 @@ public class QuestionController implements QuestionsApi {
     for (int i = 0; i < examQuestion.size(); i++){
       QuestionDTO questionDTO = new QuestionDTO();
       QuestionsEntity questionsEntity = questionService.getQuestionById(examQuestion.get(i).getQuestionId());
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replace("/uploads/images/","hava.edu.vn/uploads/images/"));
       modelMapper.map(questionsEntity, questionDTO);
 
       questionDTOLst.add(questionDTO);
