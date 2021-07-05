@@ -13,6 +13,8 @@
     <mapping class="com.fpt.hava.hava_manager.exam.domain.QuestionsEntity"/>
     <mapping class="com.fpt.hava.hava_manager.theory.domain.TheoryEntity"/>
     <mapping class="com.fpt.hava.hava_manager.exam.domain.ExamQuestionsEntity"/>
+    <mapping class="com.fpt.hava.hava_manager.test_history.domain.HistoriesEntity"/>
+    <mapping class="com.fpt.hava.hava_manager.test_history.domain.TestHistoryEntity"/>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

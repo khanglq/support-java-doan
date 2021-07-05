@@ -23,9 +23,9 @@ public class TheoryController implements TheorysApi {
   private final ModelMapper modelMapper;
   private final TheoryService theoryService;
 
-  public ResponseEntity<TheoryDTO> getTheory(@ApiParam(value = "id of theory",required=true) @PathVariable("id") Integer id) {
+  public ResponseEntity<TheoryDTO> getTheory(@ApiParam(value = "id of theory",required=true) @PathVariable("id") String id) {
     TheoryDTO theoryDTO = new TheoryDTO();
-    TheoryEntity theoryEntity = theoryService.getAllById(id);
+    TheoryEntity theoryEntity = theoryService.getAllById(Integer.valueOf(id));
 
     modelMapper.map(theoryEntity, theoryDTO);
 

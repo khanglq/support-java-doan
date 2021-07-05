@@ -37,8 +37,6 @@ public class FQASController implements FqasApi {
       fqasDTOs.add(fqasDTO);
     }
 
-
     return ResponseEntity.ok(fqasDTOs);
-
   }
 }

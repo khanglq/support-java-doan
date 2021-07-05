@@ -22,11 +22,10 @@ public class ExamController implements ExamsApi {
   private final ExamService examService;
   private final ModelMapper modelMapper;
 
-
   @Override
-  public ResponseEntity<List<ExamDTO>> getExams(@ApiParam(value = "id of category",required=true) @PathVariable("id") Integer id) {
+  public ResponseEntity<List<ExamDTO>> getExams(@ApiParam(value = "id of category",required=true) @PathVariable("id") String id) {
     List<ExamDTO> examDTOS = new ArrayList<>();
-    List<ExamsEntity> exams = examService.getExamsByIdCategory(id);
+    List<ExamsEntity> exams = examService.getExamsByIdCategory(Integer.valueOf(id));
 
     for(ExamsEntity item : exams){
       ExamDTO examDTO = new ExamDTO();

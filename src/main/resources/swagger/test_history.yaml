@@ -1,0 +1,49 @@
+openapi: 3.0.1
+info:
+  title: "Hava Project - REST API documents"
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api/v1'
+paths:
+  '/test-history':
+    post:
+      summary: Create test history
+      operationId: createTestHistory
+      tags:
+        - test-history
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestHistoryCreateRequest'
+      responses:
+        '200':
+          description: Test history has created
+
+components:
+  schemas:
+    TestHistoryCreateRequest:
+      type: object
+      properties:
+        id_exam:
+          type: integer
+        type:
+          type: integer
+        test_schedules_id:
+          type: integer
+        list_answer:
+          $ref: '#/components/schemas/ListAnswer'
+    ListAnswer:
+      type: array
+      items:
+        $ref: '#/components/schemas/SubList'
+    SubList:
+      type: object
+      properties:
+        id_question:
+          type: integer
+        answer:
+          type: integer
+
+

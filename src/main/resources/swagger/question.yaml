@@ -3,28 +3,30 @@ info:
   title: "Hava Project - REST API documents"
   version: 1.0.0
 servers:
-  - url: 'http://localhost:8080/api/v1'
+  - url: 'http://localhost:8081/api/v1'
 paths:
   '/questions/{id}':
     get:
-      summary: Get Question By Id
+      summary: Get Question By Id Exam
       operationId: getQuestions
       tags:
         - questions
       parameters:
         - name: id
           in: path
-          description: 'id of question'
+          description: 'id of exam'
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         '200':
           description: Questions
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/questionDTO'
+                type: array
+                items:
+                  $ref: '#/components/schemas/questionDTO'
 
 components:
   schemas:

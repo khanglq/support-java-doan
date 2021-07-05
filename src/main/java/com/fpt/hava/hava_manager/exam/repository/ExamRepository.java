@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ExamRepository extends JpaRepository<ExamsEntity, Integer> {
 
-  List<ExamsEntity> findAllByCategoryId(Integer id);
+  List<ExamsEntity> findAllByCategoryIdOrderByTitleAsc(Integer id);
 }
