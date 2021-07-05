@@ -17,7 +17,7 @@ paths:
           description: 'id of exam'
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         '200':
           description: Questions

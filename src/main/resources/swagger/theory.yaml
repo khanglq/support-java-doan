@@ -17,7 +17,7 @@ paths:
           description: 'id of theory'
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         '200':
           description: Theory

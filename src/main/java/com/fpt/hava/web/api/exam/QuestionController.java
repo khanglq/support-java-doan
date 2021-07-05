@@ -28,10 +28,9 @@ public class QuestionController implements QuestionsApi {
   private final ExamQuestionService examQuestionService;
   private final ModelMapper modelMapper;
 
-  public ResponseEntity<List<QuestionDTO>> getQuestions(@ApiParam(value = "id of exam",required=true) @PathVariable("id") Integer id) {
+  public ResponseEntity<List<QuestionDTO>> getQuestions(@ApiParam(value = "id of exam",required=true) @PathVariable("id") String id) {
     List<QuestionDTO> questionDTOLst = new ArrayList<>();
-    List<ExamQuestionsEntity> examQuestion = examQuestionService.getIdQuestionByExamId(id);
-
+    List<ExamQuestionsEntity> examQuestion = examQuestionService.getIdQuestionByExamId(Integer.valueOf(id));
 
     for (int i = 0; i < examQuestion.size(); i++){
       QuestionDTO questionDTO = new QuestionDTO();
@@ -43,6 +42,5 @@ public class QuestionController implements QuestionsApi {
     }
 
     return ResponseEntity.ok(questionDTOLst);
-
   }
 }

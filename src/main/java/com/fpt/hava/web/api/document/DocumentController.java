@@ -26,8 +26,8 @@ public class DocumentController implements DocumentsApi {
   private final DocumentService documentService;
   private final ModelMapper modelMapper;
 
-  public ResponseEntity<List<DocumentDTO>> getDocument(@ApiParam(value = "id of document category",required=true) @PathVariable("id") Integer id) {
-    List<DocumentsEntity> documentsEntity = documentService.findByDocumentCategoryId(id);
+  public ResponseEntity<List<DocumentDTO>> getDocument(@ApiParam(value = "id of document category",required=true) @PathVariable("id") String id) {
+    List<DocumentsEntity> documentsEntity = documentService.findByDocumentCategoryId(Integer.valueOf(id));
     List<DocumentDTO> documentDTO = new ArrayList<>();
 
     for(DocumentsEntity item : documentsEntity){
