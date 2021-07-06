@@ -34,7 +34,7 @@ public class HistoryEntity {
   @Column(name = "type", nullable = false)
   private int type;
 
-  @Column(name = "true", nullable = false)
+  @Column(name = "truee", nullable = false)
   private int true_answer;
 
   @Column(name = "test_schedules_id", nullable = false)
