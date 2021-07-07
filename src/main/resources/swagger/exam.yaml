@@ -39,6 +39,12 @@ components:
           type: string
         categoryId:
           type: integer
+        isRandom:
+          type: integer
+        isDone:
+          type: integer
+        isFree:
+          type: integer
         level:
           type: integer
 
