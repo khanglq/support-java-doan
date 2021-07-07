@@ -32,13 +32,16 @@ public class TestHistoryImpl implements TestHistoryService {
   @Override
   public void CreateTestHistory(TestHistoryCreateRequest testHistoryCreateRequest) {
     List<ExamQuestionsEntity> listIdQuestion = examQuestionRepository.findByExamId(testHistoryCreateRequest.getIdExam());
+
     Optional<ExamsEntity> examsEntity = examRepository.findById(testHistoryCreateRequest.getIdExam());
 
     List<Integer> lstAnswerTrue = new ArrayList<>();
     for (ExamQuestionsEntity item : listIdQuestion){
       Optional<QuestionsEntity> answerTrue = questionRepository.findById(item.getId());
 
-      lstAnswerTrue.add(answerTrue.get().getAnswerTrue());
+      if (answerTrue.get().getAnswerTrue() != 0) {
+        lstAnswerTrue.add(answerTrue.get().getAnswerTrue());
+      }
     }
 
     int countTrueAnswer = 0;
