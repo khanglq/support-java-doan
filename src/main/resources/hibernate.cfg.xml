@@ -7,6 +7,7 @@
     <property name="connection.url">jdbc:mysql://localhost:3306/hava</property>
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
     <mapping class="com.fpt.hava.hava_manager.document.domain.OkokEntity"/>
+    <mapping class="com.fpt.hava.hava_manager.theory.domain.CategoryEntity"/>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

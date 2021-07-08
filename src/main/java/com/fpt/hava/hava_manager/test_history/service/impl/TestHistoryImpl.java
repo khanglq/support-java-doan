@@ -30,14 +30,14 @@ public class TestHistoryImpl implements TestHistoryService {
   private final ExamRepository examRepository;
 
   @Override
-  public void CreateTestHistory(TestHistoryCreateRequest testHistoryCreateRequest) {
+  public void createTestHistory(TestHistoryCreateRequest testHistoryCreateRequest) {
     List<ExamQuestionsEntity> listIdQuestion = examQuestionRepository.findByExamId(testHistoryCreateRequest.getIdExam());
 
     Optional<ExamsEntity> examsEntity = examRepository.findById(testHistoryCreateRequest.getIdExam());
 
     List<Integer> lstAnswerTrue = new ArrayList<>();
     for (ExamQuestionsEntity item : listIdQuestion){
-      Optional<QuestionsEntity> answerTrue = questionRepository.findById(item.getId());
+      Optional<QuestionsEntity> answerTrue = questionRepository.findById(item.getQuestionId());
 
       if (answerTrue.get().getAnswerTrue() != 0) {
         lstAnswerTrue.add(answerTrue.get().getAnswerTrue());
@@ -77,5 +77,18 @@ public class TestHistoryImpl implements TestHistoryService {
         testHistoryRepository.save(testHistoryEntity);
       }
     }
+  }
+
+  @Override
+  public TestHistoryEntity getHistoryById(Integer id) {
+    TestHistoryEntity testHistoryEntity = testHistoryRepository.findAllById(id);
+
+    return testHistoryEntity;
+  }
+
+  @Override
+  public Optional<TestHistoryEntity> getTestHistoryByHisIdAndQuesId(Integer idHis, Integer idQues) {
+    Optional<TestHistoryEntity> testHistoryEntity = testHistoryRepository.findByHistoryIdAndAndQuestionId(idHis, idQues);
+    return testHistoryEntity;
   }
 }
