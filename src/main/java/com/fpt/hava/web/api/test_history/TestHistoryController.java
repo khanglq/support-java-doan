@@ -1,18 +1,31 @@
 package com.fpt.hava.web.api.test_history;
 
+import com.fpt.hava.hava_manager.exam.domain.QuestionsEntity;
+import com.fpt.hava.hava_manager.exam.service.QuestionService;
 import com.fpt.hava.hava_manager.f_q_as.service.FQASService;
+import com.fpt.hava.hava_manager.test_history.domain.HistoryEntity;
+import com.fpt.hava.hava_manager.test_history.domain.TestHistoryEntity;
+import com.fpt.hava.hava_manager.test_history.service.HistoryService;
 import com.fpt.hava.hava_manager.test_history.service.TestHistoryService;
+import com.fpt.hava.hava_manager.theory.service.CategoryService;
+import com.fpt.hava.web.api.hava_manager.test_history.ApiUtil;
 import com.fpt.hava.web.api.hava_manager.test_history.TestHistoryApi;
+import com.fpt.hava.web.api.hava_manager.test_history.dto.Answers;
 import com.fpt.hava.web.api.hava_manager.test_history.dto.TestHistoryCreateRequest;
+import com.fpt.hava.web.api.hava_manager.test_history.dto.TestResultDTO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,10 +38,77 @@ import org.springframework.web.context.request.NativeWebRequest;
 public class TestHistoryController implements TestHistoryApi {
 
   private final TestHistoryService testHistoryService;
+  private final QuestionService questionService;
+  private final HistoryService historyService;
+  private final CategoryService categoryService;
 
   @Override
   public ResponseEntity<Void> createTestHistory(@ApiParam(value = "" ,required=true )  @Valid @RequestBody TestHistoryCreateRequest testHistoryCreateRequest) {
-    testHistoryService.CreateTestHistory(testHistoryCreateRequest);
+    testHistoryService.createTestHistory(testHistoryCreateRequest);
     return ResponseEntity.ok().build();
+  }
+
+  @Override
+  public ResponseEntity<List<TestResultDTO>> getTestResult(@ApiParam(value = "id of history",required=true) @PathVariable("id") String id) {
+    HistoryEntity testHistory = historyService.getHistoryById(Integer.valueOf(id));
+    List<QuestionsEntity> questionsLst = questionService.getAllQuestionByIdExam(testHistory.getExamId());
+
+    List<Integer> catIdLst = new ArrayList<>();
+    for (QuestionsEntity item : questionsLst){
+      int ids = item.getCategoryId();
+      if(item.getAnswerTrue() != 0){
+        catIdLst.add(ids);
+      }
+    }
+
+    List<Integer> mainLst = new ArrayList<>();
+    mainLst.add(catIdLst.get(0));
+    for (int i = 0; i < catIdLst.size(); i++){
+      boolean check = true;
+      for (int j = 0; j < mainLst.size(); j++){
+        if(catIdLst.get(i) == mainLst.get(j)){
+          check = false;
+        }
+      }
+      if (check == true) mainLst.add(catIdLst.get(i));
+    }
+
+    List<TestResultDTO> testResultDTOS = new ArrayList<>();
+
+    for (Integer item : mainLst){
+      TestResultDTO testResultDTO = new TestResultDTO();
+      testResultDTO.setTitle(categoryService.getCatById(item).getTitle());
+
+      Integer totalQuesOfCat = historyService.totalQuesByCat(testHistory.getExamId(), item);
+
+      testResultDTO.setTotalQuestion(totalQuesOfCat);
+
+      List<Answers> answersList = new ArrayList<>();
+      int selectedQues = 0;
+      for (int i = 0; i < questionsLst.size(); i++){
+        if (questionsLst.get(i).getCategoryId() == item){
+          Answers answers = new Answers();
+          Optional<TestHistoryEntity> testHistoryEntity = testHistoryService.getTestHistoryByHisIdAndQuesId(Integer.valueOf(id), questionsLst.get(i).getId());
+          answers.setQuestionNumber(i+1);
+          if(testHistoryEntity.isPresent()){
+            selectedQues++;
+            if (testHistoryEntity.get().getAnswer() == questionsLst.get(i).getAnswerTrue()){
+              answers.setIsRight(1);
+            } else {
+              answers.setIsRight(0);
+            }
+          } else {
+            answers.setIsRight(0);
+          }
+          answersList.add(answers);
+        }
+      }
+
+      testResultDTO.setSelectedQuestion(selectedQues);
+      testResultDTO.setListAnswer(answersList);
+      testResultDTOS.add(testResultDTO);
+    }
+
+    return ResponseEntity.ok(testResultDTOS);
   }
 }

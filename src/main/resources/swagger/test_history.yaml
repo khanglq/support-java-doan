@@ -20,6 +20,28 @@ paths:
       responses:
         '200':
           description: Test history has created
+  '/test-history/{id}':
+    get:
+      summary: View test result
+      operationId: getTestResult
+      tags:
+        - test-history
+      parameters:
+        - name: id
+          in: path
+          description: 'id of history'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Test-Result
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestResultDTO'
 
 components:
   schemas:
@@ -44,6 +66,28 @@ components:
         id_question:
           type: integer
         answer:
+          type: integer
+    TestResultDTO:
+      type: object
+      properties:
+        title:
+          type: string
+        total_question:
+          type: integer
+        selected_question:
+          type: integer
+        list_answer:
+          $ref: '#/components/schemas/AnswerOfCat'
+    AnswerOfCat:
+      type: array
+      items:
+        $ref: '#/components/schemas/Answers'
+    Answers:
+      type: object
+      properties:
+        question_number:
+          type: integer
+        is_right:
           type: integer
 
 
