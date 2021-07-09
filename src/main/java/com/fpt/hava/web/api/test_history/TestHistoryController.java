@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,6 +54,7 @@ public class TestHistoryController implements TestHistoryApi {
     HistoryEntity testHistory = historyService.getHistoryById(Integer.valueOf(id));
     List<QuestionsEntity> questionsLst = questionService.getAllQuestionByIdExam(testHistory.getExamId());
 
+    // get list id category in list question
     List<Integer> catIdLst = new ArrayList<>();
     for (QuestionsEntity item : questionsLst){
       int ids = item.getCategoryId();
@@ -61,6 +63,7 @@ public class TestHistoryController implements TestHistoryApi {
       }
     }
 
+    // get distinct id category
     List<Integer> mainLst = new ArrayList<>();
     mainLst.add(catIdLst.get(0));
     for (int i = 0; i < catIdLst.size(); i++){
@@ -72,8 +75,10 @@ public class TestHistoryController implements TestHistoryApi {
       }
       if (check == true) mainLst.add(catIdLst.get(i));
     }
+    //
 
     List<TestResultDTO> testResultDTOS = new ArrayList<>();
+    int totalQuestionTrue = 0;
 
     for (Integer item : mainLst){
       TestResultDTO testResultDTO = new TestResultDTO();
@@ -81,19 +86,19 @@ public class TestHistoryController implements TestHistoryApi {
 
       Integer totalQuesOfCat = historyService.totalQuesByCat(testHistory.getExamId(), item);
 
-      testResultDTO.setTotalQuestion(totalQuesOfCat);
+      testResultDTO.setTotalQuestionOfCat(totalQuesOfCat);
 
       List<Answers> answersList = new ArrayList<>();
-      int selectedQues = 0;
+      int selectedQuesTrue = 0;
       for (int i = 0; i < questionsLst.size(); i++){
         if (questionsLst.get(i).getCategoryId() == item){
           Answers answers = new Answers();
           Optional<TestHistoryEntity> testHistoryEntity = testHistoryService.getTestHistoryByHisIdAndQuesId(Integer.valueOf(id), questionsLst.get(i).getId());
           answers.setQuestionNumber(i+1);
           if(testHistoryEntity.isPresent()){
-            selectedQues++;
             if (testHistoryEntity.get().getAnswer() == questionsLst.get(i).getAnswerTrue()){
               answers.setIsRight(1);
+              selectedQuesTrue++;
             } else {
               answers.setIsRight(0);
             }
@@ -104,10 +109,14 @@ public class TestHistoryController implements TestHistoryApi {
         }
       }
 
-      testResultDTO.setSelectedQuestion(selectedQues);
+      totalQuestionTrue += selectedQuesTrue;
+
+      testResultDTO.setSelectedQuestionTrue(selectedQuesTrue);
       testResultDTO.setListAnswer(answersList);
       testResultDTOS.add(testResultDTO);
     }
+    testResultDTOS.get(0).setTotalQuestion(questionsLst.size());
+    testResultDTOS.get(0).setTotalQuestionTrue(totalQuestionTrue);
 
     return ResponseEntity.ok(testResultDTOS);
   }

@@ -10,7 +10,7 @@ paths:
       summary: Get Document Categories
       operationId: getDocumentCategories
       tags:
-        - document categories
+        - document-categories
       responses:
         '200':
           description: Document Categories
