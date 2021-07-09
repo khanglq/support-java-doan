@@ -72,10 +72,19 @@ components:
       properties:
         title:
           type: string
+          description: title of category
+        total_question_of_cat:
+          type: integer
+          description: total question which belong to category
+        selected_question_true:
+          type: integer
+          description: list question which belong to category
+        total_question_true:
+          type: integer
+          description: total question true of exam
         total_question:
           type: integer
-        selected_question:
-          type: integer
+          description: total question of exam
         list_answer:
           $ref: '#/components/schemas/AnswerOfCat'
     AnswerOfCat:
@@ -87,7 +96,9 @@ components:
       properties:
         question_number:
           type: integer
+          description: index of question in exam
         is_right:
           type: integer
+          description: question is true(1) or false(0)
 
 

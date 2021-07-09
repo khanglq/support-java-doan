@@ -5,85 +5,42 @@ info:
 servers:
   - url: 'http://localhost:8081/api/v1'
 paths:
-  '/theorys/{id}':
+  '/category/{id}':
     get:
-      summary: Get Theory By Id
-      operationId: getTheory
+      summary: Get Category By Parent Id
+      operationId: getCategory
       tags:
         - theory
       parameters:
         - name: id
           in: path
-          description: 'id of theory'
+          description: 'id of parent'
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: Theory
+          description: Category
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/theoryDTO'
+                type: array
+                items:
+                  $ref: '#/components/schemas/categoryDTO'
 
 components:
   schemas:
-    theoryDTO:
+    categoryDTO:
       type: object
       properties:
         id:
           type: integer
         title:
           type: string
-        contents:
+        description:
           type: string
-        examId:
+        parentId:
           type: integer
-        categoryId:
+        groups:
           type: integer
-        categoryPath:
-          type: string
-
-
-
-#openapi: 3.0.1
-#info:
-#  title: "Hava Project - REST API documents"
-#  version: 1.0.0
-#servers:
-#  - url: 'http://localhost:8080/api/v1'
-#paths:
-#  '/documents':
-#    get:
-#      summary: Get Documents
-#      operationId: getDocuments
-#      tags:
-#        - documents
-#      responses:
-#        '200':
-#          description: Documents
-#          content:
-#            application/json:
-#              schema:
-#                type: array
-#                items:
-#                  $ref: '#/components/schemas/DocumentDTO'
-#
-#components:
-#  schemas:
-#    DocumentDTO:
-#      type: object
-#      properties:
-#        id:
-#          type: integer
-#        title:
-#          type: string
-#        thumbnail:
-#          type: string
-#        href:
-#          type: string
-#        document_category_id:
-#          type: integer
-#
-
 
