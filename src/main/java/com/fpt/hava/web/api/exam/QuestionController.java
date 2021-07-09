@@ -6,7 +6,6 @@ import com.fpt.hava.hava_manager.exam.service.ExamQuestionService;
 import com.fpt.hava.hava_manager.exam.service.QuestionService;
 import com.fpt.hava.hava_manager.label.domain.LabelsEntity;
 import com.fpt.hava.hava_manager.label.service.LabelService;
-import com.fpt.hava.web.api.hava_manager.question.ApiUtil;
 import com.fpt.hava.web.api.hava_manager.question.QuestionsApi;
 import com.fpt.hava.web.api.hava_manager.question.dto.QuestionDTO;
 import io.swagger.annotations.ApiParam;
@@ -14,14 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 @RestController
 @RequiredArgsConstructor

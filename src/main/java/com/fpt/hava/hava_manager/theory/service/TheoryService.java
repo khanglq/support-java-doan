@@ -1,7 +1,8 @@
 package com.fpt.hava.hava_manager.theory.service;
 
 import com.fpt.hava.hava_manager.theory.domain.TheoryEntity;
+import java.util.List;
 
 public interface TheoryService {
-  TheoryEntity getAllById(Integer id);
+  List<TheoryEntity> getAllByIdCat(Integer id);
 }

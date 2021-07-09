@@ -27,6 +27,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/categoryDTO'
+  '/theory/{id}':
+    get:
+      summary: Get Theory By Category Id
+      operationId: getTheory
+      tags:
+        - theory
+      parameters:
+        - name: id
+          in: path
+          description: 'id of category'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Theory
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/theoryDTO'
 
 components:
   schemas:
@@ -43,4 +65,16 @@ components:
           type: integer
         groups:
           type: integer
-
+    theoryDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        contents:
+          type: string
+        examId:
+          type: integer
+        categoryId:
+          type: integer
