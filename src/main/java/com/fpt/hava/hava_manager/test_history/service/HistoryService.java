@@ -6,4 +6,5 @@ import java.util.List;
 public interface HistoryService {
   HistoryEntity getHistoryById(Integer id);
   Integer totalQuesByCat(Integer idExam, Integer idCat);
+  HistoryEntity getLastRecord();
 }
