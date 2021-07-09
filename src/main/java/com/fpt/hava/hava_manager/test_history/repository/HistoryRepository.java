@@ -13,4 +13,6 @@ public interface HistoryRepository extends JpaRepository<HistoryEntity, Integer>
       + "WHERE q.id = eq.question_id AND eq.exam_id = ?1 AND q.category_id = ?2 "
       + "AND q.answer_true != 0", nativeQuery = true)
   Integer totalQuesByCat(Integer idExam, Integer idCat);
+
+  HistoryEntity findTopByOrderByIdDesc();
 }

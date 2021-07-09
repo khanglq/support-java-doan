@@ -20,6 +20,11 @@ paths:
       responses:
         '200':
           description: Test history has created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdHistory'
+
   '/test-history/{id}':
     get:
       summary: View test result
@@ -101,4 +106,6 @@ components:
           type: integer
           description: question is true(1) or false(0)
 
+    IdHistory:
+      type: integer
 

@@ -5,7 +5,7 @@ info:
 servers:
   - url: 'http://localhost:8081/api/v1'
 paths:
-  '/exams/{id}':
+  '/exam/{id}':
     get:
       summary: Get Exams By Category Id. Show title and Level of Exams
       operationId: getExams
@@ -27,9 +27,47 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/examDTO'
+  '/exam/':
+    post:
+      summary: Get mark of exam
+      operationId: getMark
+      tags:
+        - exams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExamRequest'
+      responses:
+        '200':
+          description: Get-Mark
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestResultDTO'
 
 components:
   schemas:
+    ExamRequest:
+      type: object
+      properties:
+        id_exam:
+          type: integer
+        list_answer:
+          $ref: '#/components/schemas/ListAnswer'
+    ListAnswer:
+      type: array
+      items:
+        $ref: '#/components/schemas/SubList'
+    SubList:
+      type: object
+      properties:
+        id_question:
+          type: integer
+        answer:
+          type: integer
+
     examDTO:
       type: object
       properties:
@@ -48,4 +86,31 @@ components:
         level:
           type: integer
 
+    TestResultDTO:
+      type: object
+      properties:
+        title:
+          type: string
+          description: title of category
+        total_question_true:
+          type: integer
+          description: total question true of exam
+        total_question:
+          type: integer
+          description: total question of exam
+        list_answer:
+          $ref: '#/components/schemas/AnswerOfCat'
+    AnswerOfCat:
+      type: array
+      items:
+        $ref: '#/components/schemas/Answers'
+    Answers:
+      type: object
+      properties:
+        question_number:
+          type: integer
+          description: index of question in exam
+        is_right:
+          type: integer
+          description: question is true(1) or false(0)
 

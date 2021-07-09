@@ -23,4 +23,9 @@ public class HistoryImpl implements HistoryService {
   public Integer totalQuesByCat(Integer idExam, Integer idCat) {
     return historyRepository.totalQuesByCat(idExam, idCat);
   }
+
+  @Override
+  public HistoryEntity getLastRecord() {
+    return historyRepository.findTopByOrderByIdDesc();
+  }
 }
