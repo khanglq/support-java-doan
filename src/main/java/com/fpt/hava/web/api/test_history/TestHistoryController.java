@@ -7,6 +7,7 @@ import com.fpt.hava.hava_manager.test_history.domain.HistoryEntity;
 import com.fpt.hava.hava_manager.test_history.domain.TestHistoryEntity;
 import com.fpt.hava.hava_manager.test_history.service.HistoryService;
 import com.fpt.hava.hava_manager.test_history.service.TestHistoryService;
+import com.fpt.hava.hava_manager.theory.domain.CategoryEntity;
 import com.fpt.hava.hava_manager.theory.service.CategoryService;
 import com.fpt.hava.web.api.hava_manager.test_history.ApiUtil;
 import com.fpt.hava.web.api.hava_manager.test_history.TestHistoryApi;
@@ -90,7 +91,13 @@ public class TestHistoryController implements TestHistoryApi {
 
     for (Integer item : mainLst){
       TestResultDTO testResultDTO = new TestResultDTO();
-      testResultDTO.setTitle(categoryService.getCatById(item).getTitle());
+
+      String title_category = categoryService.getCatById(item).getTitle();
+      CategoryEntity categoryEntity = categoryService.findByTitle(title_category);
+      int temp = categoryEntity.getDescription().indexOf('#');
+      Integer id_theory = Integer.valueOf(categoryEntity.getDescription().substring(temp+1));
+      testResultDTO.setTitle(title_category);
+      testResultDTO.setIdTheory(id_theory);
 
       Integer totalQuesOfCat = historyService.totalQuesByCat(testHistory.getExamId(), item);
 

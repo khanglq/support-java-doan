@@ -27,7 +27,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/examDTO'
-  '/exam/':
+  '/exam':
     post:
       summary: Get mark of exam
       operationId: getMark
@@ -45,7 +45,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TestResultDTO'
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestResultDTO'
 
 components:
   schemas:
@@ -92,6 +94,15 @@ components:
         title:
           type: string
           description: title of category
+        id_theory:
+          type: integer
+          description: id of theory get by category title
+        total_question_of_cat:
+          type: integer
+          description: total question which belong to category
+        selected_question_true:
+          type: integer
+          description: list question which belong to category
         total_question_true:
           type: integer
           description: total question true of exam

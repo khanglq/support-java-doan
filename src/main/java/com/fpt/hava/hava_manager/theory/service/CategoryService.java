@@ -8,4 +8,5 @@ public interface CategoryService {
   CategoryEntity getCatById(Integer id);
   List<CategoryEntity> getCatByParentId(String id);
   Optional<CategoryEntity> findById(Integer id);
+  CategoryEntity findByTitle(String title);
 }
