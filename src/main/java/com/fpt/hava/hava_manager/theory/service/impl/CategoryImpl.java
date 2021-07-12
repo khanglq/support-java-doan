@@ -30,4 +30,9 @@ public class CategoryImpl implements CategoryService {
   public Optional<CategoryEntity> findById(Integer id) {
     return categoryRepository.findById(id);
   }
+
+  @Override
+  public CategoryEntity findByTitle(String title) {
+    return categoryRepository.findByTitle(title);
+  }
 }

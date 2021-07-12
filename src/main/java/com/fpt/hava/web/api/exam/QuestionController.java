@@ -38,6 +38,22 @@ public class QuestionController implements QuestionsApi {
       QuestionDTO questionDTO = new QuestionDTO();
       QuestionsEntity questionsEntity = questionService.getQuestionById(examQuestion.get(i).getQuestionId());
       questionsEntity.setQuestion(questionsEntity.getQuestion().replace("/uploads/images/","https://hava.edu.vn/uploads/images/"));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-top:none;", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-top:solid;", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-top:solid", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-bottom:none;", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-bottom:solid;", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-bottom:solid", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border:none;", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border:solid;", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border:solid", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-left:none;", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-left:solid;", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-left:solid", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-right:none;", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-right:solid;", ""));
+      questionsEntity.setQuestion(questionsEntity.getQuestion().replaceAll("border-right:solid", ""));
+
       questionsEntity.setAnswer(questionsEntity.getAnswer().replace("/uploads/images/","https://hava.edu.vn/uploads/images/"));
       questionsEntity.setAnswerA(questionsEntity.getAnswerA().replace("/uploads/images/","https://hava.edu.vn/uploads/images/"));
       questionsEntity.setAnswerB(questionsEntity.getAnswerB().replace("/uploads/images/","https://hava.edu.vn/uploads/images/"));

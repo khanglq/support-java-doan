@@ -4,6 +4,8 @@ import com.fpt.hava.hava_manager.exam.domain.ExamsEntity;
 import com.fpt.hava.hava_manager.exam.domain.QuestionsEntity;
 import com.fpt.hava.hava_manager.exam.service.ExamService;
 import com.fpt.hava.hava_manager.exam.service.QuestionService;
+import com.fpt.hava.hava_manager.test_history.domain.TestHistoryEntity;
+import com.fpt.hava.hava_manager.test_history.service.HistoryService;
 import com.fpt.hava.hava_manager.theory.domain.CategoryEntity;
 import com.fpt.hava.hava_manager.theory.service.CategoryService;
 import com.fpt.hava.web.api.hava_manager.exam.ApiUtil;
@@ -11,6 +13,7 @@ import com.fpt.hava.web.api.hava_manager.exam.ExamApi;
 import com.fpt.hava.web.api.hava_manager.exam.dto.Answers;
 import com.fpt.hava.web.api.hava_manager.exam.dto.ExamDTO;
 import com.fpt.hava.web.api.hava_manager.exam.dto.ExamRequest;
+import com.fpt.hava.web.api.hava_manager.exam.dto.SubList;
 import com.fpt.hava.web.api.hava_manager.exam.dto.TestResultDTO;
 import io.swagger.annotations.ApiParam;
 import java.util.ArrayList;
@@ -35,6 +38,7 @@ public class ExamController implements ExamApi {
   private final ExamService examService;
   private final QuestionService questionService;
   private final CategoryService categoryService;
+  private final HistoryService historyService;
   private final ModelMapper modelMapper;
 
   @Override
@@ -55,36 +59,76 @@ public class ExamController implements ExamApi {
   }
 
   @Override
-  public ResponseEntity<TestResultDTO> getMark(@ApiParam(value = "" ,required=true )  @Valid @RequestBody ExamRequest examRequest) {
-    List<QuestionsEntity> questionsEntities = questionService.getAllQuestionByIdExam(examRequest.getIdExam());
+  public ResponseEntity<List<TestResultDTO>> getMark(@ApiParam(value = "" ,required=true )  @Valid @RequestBody ExamRequest examRequest) {
+    List<QuestionsEntity> questionsLst = questionService.getAllQuestionByIdExam(examRequest.getIdExam());
+    List<SubList> subLists = examRequest.getListAnswer();
 
-    List<Integer> lstAnswerTrue = new ArrayList<>();
-    for(QuestionsEntity item : questionsEntities){
-      lstAnswerTrue.add(item.getAnswerTrue());
-    }
-
-    List<Answers> answerLst = new ArrayList<>();
-    int totalQuestionTrue = 0;
-    for(int i=0; i < lstAnswerTrue.size(); i++){
-      Answers answer = new Answers();
-      answer.setQuestionNumber(i+1);
-      answer.setIsRight(0);
-      if(examRequest.getListAnswer().get(i).getAnswer() == lstAnswerTrue.get(i)){
-        totalQuestionTrue++;
-        answer.setIsRight(1);
+    // get list id category in list question
+    List<Integer> catIdLst = new ArrayList<>();
+    for (QuestionsEntity item : questionsLst){
+      int ids = item.getCategoryId();
+      if(item.getAnswerTrue() != 0){
+        catIdLst.add(ids);
       }
-      answerLst.add(answer);
     }
 
-    Optional<CategoryEntity> categoryEntity = categoryService.findById(questionsEntities.get(0).getCategoryId());
+    // get distinct id category
+    List<Integer> mainLst = new ArrayList<>();
+    mainLst.add(catIdLst.get(0));
+    for (int i = 0; i < catIdLst.size(); i++){
+      boolean check = true;
+      for (int j = 0; j < mainLst.size(); j++){
+        if(catIdLst.get(i) == mainLst.get(j)){
+          check = false;
+        }
+      }
+      if (check == true) mainLst.add(catIdLst.get(i));
+    }
+    //
 
-    TestResultDTO testResultDTO = new TestResultDTO();
-    testResultDTO.setTitle(categoryEntity.get().getTitle());
-    testResultDTO.setTotalQuestion(lstAnswerTrue.size());
-    testResultDTO.setTotalQuestionTrue(totalQuestionTrue);
-    testResultDTO.setListAnswer(answerLst);
+    List<TestResultDTO> testResultDTOS = new ArrayList<>();
+    int totalQuestionTrue = 0;
 
-    return ResponseEntity.ok(testResultDTO);
+    for (Integer item : mainLst){
+      TestResultDTO testResultDTO = new TestResultDTO();
+
+      String title_category = categoryService.getCatById(item).getTitle();
+      CategoryEntity categoryEntity = categoryService.findByTitle(title_category);
+      int temp = categoryEntity.getDescription().indexOf('#');
+      Integer id_theory = Integer.valueOf(categoryEntity.getDescription().substring(temp+1));
+      testResultDTO.setTitle(title_category);
+      testResultDTO.setIdTheory(id_theory);
+
+      Integer totalQuesOfCat = historyService.totalQuesByCat(examRequest.getIdExam(), item);
+
+      testResultDTO.setTotalQuestionOfCat(totalQuesOfCat);
+
+      List<Answers> answersList = new ArrayList<>();
+      int selectedQuesTrue = 0;
+      for (int i = 0; i < questionsLst.size(); i++){
+        if (questionsLst.get(i).getId() == subLists.get(i).getIdQuestion() && questionsLst.get(i).getCategoryId() == item){
+          Answers answers = new Answers();
+          answers.setQuestionNumber(i+1);
+          if (subLists.get(i).getAnswer() == questionsLst.get(i).getAnswerTrue()){
+            answers.setIsRight(1);
+            selectedQuesTrue++;
+          } else {
+            answers.setIsRight(0);
+          }
+          answersList.add(answers);
+        }
+      }
+
+      totalQuestionTrue += selectedQuesTrue;
+
+      testResultDTO.setSelectedQuestionTrue(selectedQuesTrue);
+      testResultDTO.setListAnswer(answersList);
+      testResultDTOS.add(testResultDTO);
+    }
+    testResultDTOS.get(0).setTotalQuestion(questionsLst.size());
+    testResultDTOS.get(0).setTotalQuestionTrue(totalQuestionTrue);
+
+    return ResponseEntity.ok(testResultDTOS);
 
   }
 }
