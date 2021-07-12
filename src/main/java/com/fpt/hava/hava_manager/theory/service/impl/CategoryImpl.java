@@ -1,8 +1,11 @@
 package com.fpt.hava.hava_manager.theory.service.impl;
 
 import com.fpt.hava.hava_manager.theory.domain.CategoryEntity;
+import com.fpt.hava.hava_manager.theory.domain.TheoryDTO;
+import com.fpt.hava.hava_manager.theory.domain.TheoryEntity;
 import com.fpt.hava.hava_manager.theory.repository.CategoryRepository;
 import com.fpt.hava.hava_manager.theory.service.CategoryService;
+import com.fpt.hava.web.api.hava_manager.theory.dto.CategoryDTO;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +24,6 @@ public class CategoryImpl implements CategoryService {
   }
 
   @Override
-  public List<CategoryEntity> getCatByParentId(String id) {
-    List<CategoryEntity> categoryEntities = categoryRepository.findAllByParentId(id);
-    return categoryEntities;
-  }
-
-  @Override
   public Optional<CategoryEntity> findById(Integer id) {
     return categoryRepository.findById(id);
   }
@@ -34,5 +31,10 @@ public class CategoryImpl implements CategoryService {
   @Override
   public CategoryEntity findByTitle(String title) {
     return categoryRepository.findByTitle(title);
+  }
+
+  @Override
+  public List<CategoryEntity> findAllByParentId(String id) {
+    return categoryRepository.findAllByParentId(id);
   }
 }

@@ -14,7 +14,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: 'id of parent'
+          description: 'id is parent_id in [categories] table and category_id in [theories] table too'
           required: true
           schema:
             type: string
@@ -59,12 +59,10 @@ components:
           type: integer
         title:
           type: string
-        description:
+        examId:
+          type: integer
+        contents:
           type: string
-        parentId:
-          type: integer
-        groups:
-          type: integer
     theoryDTO:
       type: object
       properties:
