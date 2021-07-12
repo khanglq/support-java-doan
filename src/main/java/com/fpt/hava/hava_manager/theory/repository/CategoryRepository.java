@@ -1,6 +1,9 @@
 package com.fpt.hava.hava_manager.theory.repository;
 
 import com.fpt.hava.hava_manager.theory.domain.CategoryEntity;
+import com.fpt.hava.hava_manager.theory.domain.TheoryDTO;
+import com.fpt.hava.hava_manager.theory.domain.TheoryEntity;
+import com.fpt.hava.web.api.hava_manager.theory.dto.CategoryDTO;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +17,5 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Intege
   @Query(value = "select * from categories \n"
       + "WHERE title = ?1 AND description != ''", nativeQuery = true)
   CategoryEntity findByTitle(String title);
+
 }
