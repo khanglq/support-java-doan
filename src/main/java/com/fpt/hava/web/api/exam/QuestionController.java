@@ -102,19 +102,11 @@ public class QuestionController implements QuestionsApi {
   public ResponseEntity<List<QuestionDTO>> getRandomQuestions(@ApiParam(value = "id of category",required=true) @PathVariable("id") String id) {
     List<ExamsEntity> examsEntities = examService.getExamsByIdCategory(Integer.valueOf(id));
 
-    List<QuestionDTO> exams = new ArrayList<>();
-    for (ExamsEntity item : examsEntities){
-      QuestionDTO questionDTO = new QuestionDTO();
-      modelMapper.map(item, questionDTO);
-      exams.add(questionDTO);
-    }
-
     Random random = new Random();
     int randomdIndexExam = random.nextInt(examsEntities.size());
 
-    QuestionDTO cc = exams.get(randomdIndexExam);
-
-    List<QuestionsEntity> questionDTOS = questionService.getAllQuestionByIdExam(cc.getId());
+    int idExam = examsEntities.get(randomdIndexExam).getId();
+    List<QuestionsEntity> questionDTOS = questionService.getAllQuestionByIdExam(idExam);
     List<QuestionDTO> questionDTOLst = new ArrayList<>();
 
     for (QuestionsEntity questionsEntity : questionDTOS){
@@ -168,6 +160,7 @@ public class QuestionController implements QuestionsApi {
         questionDTO.setValueLable(label.get().getTitle());
       }
 
+      questionDTO.setIdExam(idExam);
       questionDTOLst.add(questionDTO);
     }
 

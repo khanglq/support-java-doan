@@ -57,6 +57,8 @@ components:
       properties:
         id:
           type: integer
+        idExam:
+          type: integer
         title:
           type: string
         labelId:
