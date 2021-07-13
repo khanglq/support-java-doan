@@ -49,10 +49,8 @@ public class ExamController implements ExamApi {
     for(ExamsEntity item : exams){
       ExamDTO examDTO = new ExamDTO();
 
-      if(item.getIsTheory() == 0 && item.getIsRandom() == 0 && item.getIsPrivate() == 0 && item.getIsDone() == 1){
-        modelMapper.map(item, examDTO);
-        examDTOS.add(examDTO);
-      }
+      modelMapper.map(item, examDTO);
+      examDTOS.add(examDTO);
     }
 
     return ResponseEntity.ok(examDTOS);
