@@ -7,7 +7,7 @@ servers:
 paths:
   '/exam/{id}':
     get:
-      summary: Get Exams By Category Id. Show title and Level of Exams
+      summary: Get List Title Of Exams By Category Id
       operationId: getExams
       tags:
         - exams
@@ -29,7 +29,7 @@ paths:
                   $ref: '#/components/schemas/examDTO'
   '/exam':
     post:
-      summary: Get mark of exam
+      summary: Get analysis table of exam
       operationId: getMark
       tags:
         - exams

@@ -27,6 +27,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/questionDTO'
+  '/questions/random/{id}':
+    get:
+      summary: Get Question By Random Id Exam
+      operationId: getRandomQuestions
+      tags:
+        - questions
+      parameters:
+        - name: id
+          in: path
+          description: 'id of category'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/questionDTO'
 
 components:
   schemas:

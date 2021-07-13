@@ -13,8 +13,8 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 
 swagger2:
-  title: Portal VIMC BE - REST API
-  description: Portal VIMC BE - REST API documentation
+  title: HAVA BE - REST API
+  description: HAVA - REST API documentation
   version: 1.0.0
   url-view: '/v2/api-docs,/configuration/**,/swagger-resources/**,/swagger-ui.html,/webjars/**'
 
