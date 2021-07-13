@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TheoryRepository extends JpaRepository<TheoryEntity, Integer> {
   List<TheoryEntity> findAllByCategoryId(Integer id);
+  TheoryEntity findAllById(Integer id);
 }

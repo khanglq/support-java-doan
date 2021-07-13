@@ -18,4 +18,9 @@ public class TheoryImpl implements TheoryService {
     List<TheoryEntity> theoryEntity = theoryRepository.findAllByCategoryId(id);
     return theoryEntity;
   }
+
+  @Override
+  public TheoryEntity findAllById(Integer id) {
+    return theoryRepository.findAllById(id);
+  }
 }

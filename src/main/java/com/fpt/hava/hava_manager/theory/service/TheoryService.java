@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface TheoryService {
   List<TheoryEntity> getAllByIdCat(Integer id);
+  TheoryEntity findAllById(Integer id);
 }

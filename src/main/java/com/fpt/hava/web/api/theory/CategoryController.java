@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiParam;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,26 @@ public class CategoryController implements CategoryApi {
 
     for (TheoryEntity item : theoryEntities){
       CategoryDTO categoryDTO = new CategoryDTO();
+      item.setContents(item.getContents().replace("/uploads/images/","https://hava.edu.vn/uploads/images/"));
+      item.setContents(item.getContents().replaceAll("border-top:none;", ""));
+      item.setContents(item.getContents().replaceAll("border-top:solid;", ""));
+      item.setContents(item.getContents().replaceAll("border-top:solid", ""));
+      item.setContents(item.getContents().replaceAll("border-bottom:none;", ""));
+      item.setContents(item.getContents().replaceAll("border-bottom:solid;", ""));
+      item.setContents(item.getContents().replaceAll("border-bottom:solid", ""));
+      item.setContents(item.getContents().replaceAll("border:none;", ""));
+      item.setContents(item.getContents().replaceAll("border:solid;", ""));
+      item.setContents(item.getContents().replaceAll("border:solid", ""));
+      item.setContents(item.getContents().replaceAll("border-left:none;", ""));
+      item.setContents(item.getContents().replaceAll("border-left:solid;", ""));
+      item.setContents(item.getContents().replaceAll("border-left:solid", ""));
+      item.setContents(item.getContents().replaceAll("border-right:none;", ""));
+      item.setContents(item.getContents().replaceAll("border-right:solid;", ""));
+      item.setContents(item.getContents().replaceAll("border-right:solid", ""));
+
+      String escapedHTML = StringEscapeUtils.escapeHtml4(item.getContents());
+      item.setContents(escapedHTML);
+
       modelMapper.map(item, categoryDTO);
       categoryDTOS.add(categoryDTO);
     }
