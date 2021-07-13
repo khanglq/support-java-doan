@@ -29,14 +29,14 @@ paths:
                   $ref: '#/components/schemas/categoryDTO'
   '/theory/{id}':
     get:
-      summary: Get Theory By Category Id
+      summary: Get Theory By Id
       operationId: getTheory
       tags:
         - theory
       parameters:
         - name: id
           in: path
-          description: 'id of category'
+          description: 'id of theory'
           required: true
           schema:
             type: string
@@ -46,9 +46,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/theoryDTO'
+                $ref: '#/components/schemas/theoryDTO'
 
 components:
   schemas:

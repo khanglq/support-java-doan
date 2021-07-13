@@ -89,29 +89,37 @@ public class TestHistoryController implements TestHistoryApi {
     List<TestResultDTO> testResultDTOS = new ArrayList<>();
     int totalQuestionTrue = 0;
 
-    for (Integer item : mainLst){
+    for (int i = 0; i < mainLst.size(); i++){
       TestResultDTO testResultDTO = new TestResultDTO();
 
-      String title_category = categoryService.getCatById(item).getTitle();
+      String title_category = categoryService.getCatById(mainLst.get(i)).getTitle();
       CategoryEntity categoryEntity = categoryService.findByTitle(title_category);
       int temp = categoryEntity.getDescription().indexOf('#');
-      Integer id_theory = Integer.valueOf(categoryEntity.getDescription().substring(temp+1));
+      String tempString = categoryEntity.getDescription().substring(temp+1);
+
+      Integer id_theory;
+      if(tempString.equalsIgnoreCase("")){
+        id_theory = Integer.valueOf(testResultDTOS.get(i-1).getIdTheory());
+      } else {
+        id_theory = Integer.valueOf(tempString);
+      }
+
       testResultDTO.setTitle(title_category);
       testResultDTO.setIdTheory(id_theory);
 
-      Integer totalQuesOfCat = historyService.totalQuesByCat(testHistory.getExamId(), item);
+      Integer totalQuesOfCat = historyService.totalQuesByCat(testHistory.getExamId(), mainLst.get(i));
 
       testResultDTO.setTotalQuestionOfCat(totalQuesOfCat);
 
       List<Answers> answersList = new ArrayList<>();
       int selectedQuesTrue = 0;
-      for (int i = 0; i < questionsLst.size(); i++){
-        if (questionsLst.get(i).getCategoryId() == item){
+      for (int j = 0; j < questionsLst.size(); j++){
+        if (questionsLst.get(j).getCategoryId() == mainLst.get(i)){
           Answers answers = new Answers();
           Optional<TestHistoryEntity> testHistoryEntity = testHistoryService.getTestHistoryByHisIdAndQuesId(Integer.valueOf(id), questionsLst.get(i).getId());
-          answers.setQuestionNumber(i+1);
+          answers.setQuestionNumber(j+1);
           if(testHistoryEntity.isPresent()){
-            if (testHistoryEntity.get().getAnswer() == questionsLst.get(i).getAnswerTrue()){
+            if (testHistoryEntity.get().getAnswer() == questionsLst.get(j).getAnswerTrue()){
               answers.setIsRight(1);
               selectedQuesTrue++;
             } else {
