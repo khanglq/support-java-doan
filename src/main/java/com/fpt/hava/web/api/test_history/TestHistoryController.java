@@ -92,19 +92,22 @@ public class TestHistoryController implements TestHistoryApi {
     for (int i = 0; i < mainLst.size(); i++){
       TestResultDTO testResultDTO = new TestResultDTO();
 
-      String title_category = categoryService.getCatById(mainLst.get(i)).getTitle();
-      CategoryEntity categoryEntity = categoryService.findByTitle(title_category);
-      int temp = categoryEntity.getDescription().indexOf('#');
-      String tempString = categoryEntity.getDescription().substring(temp+1);
+//      String title_category = categoryService.getCatById(mainLst.get(i)).getTitle();
+      CategoryEntity categoryEntity = categoryService.getCatById(mainLst.get(i));
 
-      Integer id_theory;
-      if(tempString.equalsIgnoreCase("")){
-        id_theory = Integer.valueOf(testResultDTOS.get(i-1).getIdTheory());
-      } else {
-        id_theory = Integer.valueOf(tempString);
+      Integer id_theory = -1;
+      if (!categoryEntity.getDescription().equalsIgnoreCase("")){
+        int temp = categoryEntity.getDescription().indexOf('#');
+        String tempString = categoryEntity.getDescription().substring(temp+1);
+
+        if(tempString.equalsIgnoreCase("")){
+          id_theory = Integer.valueOf(testResultDTOS.get(i-1).getIdTheory());
+        } else {
+          id_theory = Integer.valueOf(tempString);
+        }
       }
 
-      testResultDTO.setTitle(title_category);
+      testResultDTO.setTitle(categoryEntity.getTitle());
       testResultDTO.setIdTheory(id_theory);
 
       Integer totalQuesOfCat = historyService.totalQuesByCat(testHistory.getExamId(), mainLst.get(i));
