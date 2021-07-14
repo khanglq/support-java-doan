@@ -119,7 +119,7 @@ public class TestHistoryController implements TestHistoryApi {
       for (int j = 0; j < questionsLst.size(); j++){
         if (questionsLst.get(j).getCategoryId() == mainLst.get(i)){
           Answers answers = new Answers();
-          Optional<TestHistoryEntity> testHistoryEntity = testHistoryService.getTestHistoryByHisIdAndQuesId(Integer.valueOf(id), questionsLst.get(i).getId());
+          Optional<TestHistoryEntity> testHistoryEntity = testHistoryService.getTestHistoryByHisIdAndQuesId(Integer.valueOf(id), questionsLst.get(j).getId());
           answers.setQuestionNumber(j+1);
           if(testHistoryEntity.isPresent()){
             if (testHistoryEntity.get().getAnswer() == questionsLst.get(j).getAnswerTrue()){
