@@ -62,7 +62,9 @@ public class TestHistoryImpl implements TestHistoryService {
     historyEntity.setTestSchedulesId(testHistoryCreateRequest.getTestSchedulesId());
     historyEntity.setTotalQuestion(lstAnswerTrue.size());
 
-    historyRepository.save(historyEntity);
+    historyRepository.saveHistory(historyEntity.getUserId(), historyEntity.getExamId(), historyEntity.getExamCategoryId(),
+        historyEntity.getType(), historyEntity.getTrue_answer(), historyEntity.getTestSchedulesId(),
+        historyEntity.getTotalQuestion());
 
     for (int i = 0; i < lstAnswerTrue.size(); i++){
       SubList subList = testHistoryCreateRequest.getListAnswer().get(i);
