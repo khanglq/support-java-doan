@@ -8,6 +8,7 @@
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
     <mapping class="com.fpt.hava.hava_manager.document.domain.OkokEntity"/>
     <mapping class="com.fpt.hava.hava_manager.theory.domain.CategoryEntity"/>
+    <mapping class="com.fpt.hava.hava_manager.test_shedule.domain.TestSchedulesEntity"/>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

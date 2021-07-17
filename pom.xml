@@ -270,6 +270,23 @@
             </configuration>
           </execution>
 
+          <execution>
+            <id>execution-api-test_schedule</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/swagger/test_schedule.yaml</inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>com.fpt.hava.web.api.hava_manager.test_schedule</apiPackage>
+              <modelPackage>com.fpt.hava.web.api.hava_manager.test_schedule.dto</modelPackage>
+              <validateSpec>true</validateSpec>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
         </executions>
       </plugin>
     </plugins>

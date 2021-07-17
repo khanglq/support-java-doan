@@ -1,0 +1,37 @@
+openapi: 3.0.1
+info:
+  title: "Hava Project - REST API documents"
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8081/api/v1'
+paths:
+  '/test-schedule':
+    get:
+      summary: Get Test Schedule
+      operationId: getSchedule
+      tags:
+        - test-schedule
+      responses:
+        '200':
+          description: Test Schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestScheduleDTO'
+
+components:
+  schemas:
+    TestScheduleDTO:
+      type: object
+      properties:
+        begin:
+          type: string
+        end:
+          type: string
+        isRepeat:
+          type: integer
+        examId:
+          type: integer
+        subjectName:
+          type: string
+

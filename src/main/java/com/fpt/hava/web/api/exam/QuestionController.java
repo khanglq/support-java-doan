@@ -102,7 +102,7 @@ public class QuestionController implements QuestionsApi {
       }
 
       if (questionDTO.getAnswerTrue() != 0){
-        questionDTO.setIndex("Câu :"+ index);
+        questionDTO.setIndex("Câu "+ index +":");
         index++;
       }
 
@@ -181,7 +181,7 @@ public class QuestionController implements QuestionsApi {
       }
 
       if (questionDTO.getAnswerTrue() != 0){
-        questionDTO.setIndex("Câu :"+ index);
+        questionDTO.setIndex("Câu "+ index +":");
         index++;
       }
 

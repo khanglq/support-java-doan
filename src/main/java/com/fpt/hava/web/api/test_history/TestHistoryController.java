@@ -44,12 +44,6 @@ public class TestHistoryController implements TestHistoryApi {
   private final HistoryService historyService;
   private final CategoryService categoryService;
 
-//  @Override
-//  public ResponseEntity<Void> createTestHistory(@ApiParam(value = "" ,required=true )  @Valid @RequestBody TestHistoryCreateRequest testHistoryCreateRequest) {
-//    testHistoryService.createTestHistory(testHistoryCreateRequest);
-//    return ResponseEntity.ok().build();
-//  }
-
   @Override
   public ResponseEntity<Integer> createTestHistory(@ApiParam(value = "" ,required=true )  @Valid @RequestBody TestHistoryCreateRequest testHistoryCreateRequest) {
     testHistoryService.createTestHistory(testHistoryCreateRequest);
