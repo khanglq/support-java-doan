@@ -61,6 +61,8 @@ components:
           type: integer
         title:
           type: string
+        index:
+          type: string
         labelId:
           type: integer
         valueLable:

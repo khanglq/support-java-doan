@@ -41,6 +41,7 @@ public class QuestionController implements QuestionsApi {
     List<QuestionDTO> questionDTOLst = new ArrayList<>();
     List<ExamQuestionsEntity> examQuestion = examQuestionService.getIdQuestionByExamId(Integer.valueOf(id));
 
+    int index = 1;
     for (int i = 0; i < examQuestion.size(); i++){
       QuestionDTO questionDTO = new QuestionDTO();
       QuestionsEntity questionsEntity = questionService.getQuestionById(examQuestion.get(i).getQuestionId());
@@ -86,11 +87,23 @@ public class QuestionController implements QuestionsApi {
       escapedHTML = StringEscapeUtils.escapeHtml4(questionsEntity.getAnswerD());
       questionsEntity.setAnswerD(escapedHTML);
 
+      escapedHTML = StringEscapeUtils.escapeHtml4(questionsEntity.getHints());
+      questionsEntity.setHints(escapedHTML);
+
+      escapedHTML = StringEscapeUtils.escapeHtml4(questionsEntity.getComments());
+      questionsEntity.setComments(escapedHTML);
+
       modelMapper.map(questionsEntity, questionDTO);
 
       Optional<LabelsEntity> label = labelService.getLabelById(questionDTO.getLabelId());
+
       if(label.isPresent()){
         questionDTO.setValueLable(label.get().getTitle());
+      }
+
+      if (questionDTO.getAnswerTrue() != 0){
+        questionDTO.setIndex("Câu :"+ index);
+        index++;
       }
 
       questionDTOLst.add(questionDTO);
@@ -109,6 +122,7 @@ public class QuestionController implements QuestionsApi {
     List<QuestionsEntity> questionDTOS = questionService.getAllQuestionByIdExam(idExam);
     List<QuestionDTO> questionDTOLst = new ArrayList<>();
 
+    int index = 1;
     for (QuestionsEntity questionsEntity : questionDTOS){
       QuestionDTO questionDTO = new QuestionDTO();
       questionsEntity.setQuestion(questionsEntity.getQuestion().replace("/uploads/images/","https://hava.edu.vn/uploads/images/"));
@@ -153,11 +167,22 @@ public class QuestionController implements QuestionsApi {
       escapedHTML = StringEscapeUtils.escapeHtml4(questionsEntity.getAnswerD());
       questionsEntity.setAnswerD(escapedHTML);
 
+      escapedHTML = StringEscapeUtils.escapeHtml4(questionsEntity.getHints());
+      questionsEntity.setHints(escapedHTML);
+
+      escapedHTML = StringEscapeUtils.escapeHtml4(questionsEntity.getComments());
+      questionsEntity.setComments(escapedHTML);
+
       modelMapper.map(questionsEntity, questionDTO);
 
       Optional<LabelsEntity> label = labelService.getLabelById(questionDTO.getLabelId());
       if(label.isPresent()){
         questionDTO.setValueLable(label.get().getTitle());
+      }
+
+      if (questionDTO.getAnswerTrue() != 0){
+        questionDTO.setIndex("Câu :"+ index);
+        index++;
       }
 
       questionDTO.setIdExam(idExam);
