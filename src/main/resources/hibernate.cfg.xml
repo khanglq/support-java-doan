@@ -9,6 +9,7 @@
     <mapping class="com.fpt.hava.hava_manager.document.domain.OkokEntity"/>
     <mapping class="com.fpt.hava.hava_manager.theory.domain.CategoryEntity"/>
     <mapping class="com.fpt.hava.hava_manager.test_shedule.domain.TestSchedulesEntity"/>
+    <mapping class="com.fpt.hava.hava_manager.user.domain.UserEntity"/>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
